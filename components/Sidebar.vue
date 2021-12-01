@@ -3,38 +3,44 @@
     <div class="nav-logo">
       <img src="~/assets/icons/redCircle.svg" alt="" class="nav-item__icon" />
     </div>
-    <div class="nav-item">
-      <img src="~/assets/icons/list.svg" alt="" class="nav-item__icon" />
+    <nuxt-link to="/polls" class="nav-item active">
+      <list />
       <span class="nav-item__title">Опросы</span>
-    </div>
-    <div class="nav-item">
-      <img src="~/assets/icons/persons.svg" alt="" class="nav-item__icon" />
+    </nuxt-link>
+    <nuxt-link to="/users" class="nav-item">
+      <persons />
       <span class="nav-item__title">Пользователи</span>
-    </div>
-    <div class="nav-item">
+    </nuxt-link>
+    <nuxt-link to="/blackLists" class="nav-item">
       <flag icon-name="red" />
       <span class="nav-item__title">Черные списки</span>
-    </div>
-    <div class="nav-item">
+    </nuxt-link>
+    <nuxt-link to="/callCenter" class="nav-item">
       <img src="~/assets/icons/phone.svg" alt="" class="nav-item__icon" />
       <span class="nav-item__title">Колл-центр</span>
-    </div>
+    </nuxt-link>
   </div>
 </template>
 
 <script>
 import Flag from './icons/flag'
+import List from './icons/list'
+import Persons from './icons/persons'
 export default {
   name: 'Sidebar',
-  components: { Flag }
+  components: { Persons, List, Flag }
 }
 </script>
 
 <style lang="scss" scoped>
+a {
+  text-decoration: none !important;
+  color: black;
+}
 .nav-sidebar {
   width: 180px;
   border-right: 1px solid #EDEDED;
-  padding-top: 15px;
+  margin-top: -8px;
   min-height: 100vh;
   .nav-item:hover {
     background-color: #f7f7f7;
@@ -59,9 +65,6 @@ export default {
   }
   &__icon {
     width: 40px;
-    img {
-      fill: pink;
-    }
   }
 }
 .nav-logo{
@@ -71,4 +74,10 @@ export default {
   margin: 15px 10px 60px;
 }
 
+.active {
+  border: 2px solid #DBF28B;
+  &:hover{
+    background-color: transparent !important;
+  }
+}
 </style>
