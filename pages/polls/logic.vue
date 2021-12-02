@@ -1,8 +1,8 @@
 <template>
 <div>
-  <h1>
-    Logic
-  </h1>
+  <div>
+    <span>Todo Logic</span>
+  </div>
 </div>
 </template>
 

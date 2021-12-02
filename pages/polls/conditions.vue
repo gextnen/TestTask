@@ -1,8 +1,8 @@
 <template>
 <div>
-  <h1>
-    conditions
-  </h1>
+  <span>
+    Conditions
+  </span>
 </div>
 </template>
 

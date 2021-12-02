@@ -1,8 +1,6 @@
 <template>
 <div>
-  <h1>
-    params
-  </h1>
+  Todo params
 </div>
 </template>
 

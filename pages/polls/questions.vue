@@ -1,8 +1,6 @@
 <template>
   <div>
-    <h1>
-      questions
-    </h1>
+    <span>Todo questions</span>
   </div>
 </template>
 
