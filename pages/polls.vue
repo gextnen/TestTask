@@ -19,7 +19,7 @@
           <nuxt-link to="/polls/conditions">Условия</nuxt-link>
         </div>
         <div class="pools-nav__item">
-          <nuxt-link to="/polls/respondents" class="active">Респонденты</nuxt-link>
+          <nuxt-link to="/polls/respondents">Респонденты</nuxt-link>
         </div>
       </div>
       <div class="pools-wrapper">
@@ -51,13 +51,26 @@ a {
   min-height: 100vh;
   box-shadow: 0 14px 28px rgba(0,0,0,0.20), 0 10px 10px rgba(0,0,0,0.15);
   margin-top: 12px;
+  border-radius: 5px;
 }
 .pools-nav {
   position: relative;
   display: flex;
   justify-content: space-between;
   padding: 0 40px;
-
+  .nuxt-link-active{
+    color: #000 !important;
+    font-weight: bold;
+    &::after {
+      content: '';
+      width: 100%;
+      border-bottom: solid 4px #C1E837;
+      position: absolute;
+      left: 0;
+      top: 27px;
+      z-index: 1;
+    }
+  }
   &__item {
     position: relative;
     display: flex;
@@ -76,20 +89,6 @@ a {
     position: absolute;
     left: 0;
     top: 30px;
-    z-index: 1;
-  }
-}
-
-.active {
-  color: #000 !important;
-  font-weight: bold;
-  &::after {
-    content: '';
-    width: 100%;
-    border-bottom: solid 4px #C1E837;
-    position: absolute;
-    left: 0;
-    top: 27px;
     z-index: 1;
   }
 }

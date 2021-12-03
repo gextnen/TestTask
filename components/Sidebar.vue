@@ -1,22 +1,22 @@
 <template>
   <div class="nav-sidebar">
     <div class="nav-logo">
-      <img src="~/assets/icons/redCircle.svg" alt="" class="nav-item__icon" />
+      <img src="~/assets/icons/redCircle.svg" alt="" class="nav-item__icon"/>
     </div>
-    <nuxt-link to="/polls" class="nav-item active">
-      <list />
-      <span class="nav-item__title">Опросы</span>
+    <nuxt-link to="/polls" class="nav-item">
+      <list/>
+      <span class="nav-item__title" >Опросы</span>
     </nuxt-link>
     <nuxt-link to="/users" class="nav-item">
-      <persons />
+      <persons/>
       <span class="nav-item__title">Пользователи</span>
     </nuxt-link>
     <nuxt-link to="/blackLists" class="nav-item">
-      <flag icon-name="red" />
+      <flag icon-name="red"/>
       <span class="nav-item__title">Черные списки</span>
     </nuxt-link>
     <nuxt-link to="/callCenter" class="nav-item">
-      <img src="~/assets/icons/phone.svg" alt="" class="nav-item__icon" />
+      <img src="~/assets/icons/phone.svg" alt="" class="nav-item__icon"/>
       <span class="nav-item__title">Колл-центр</span>
     </nuxt-link>
   </div>
@@ -26,9 +26,20 @@
 import Flag from './icons/flag'
 import List from './icons/list'
 import Persons from './icons/persons'
+
 export default {
   name: 'Sidebar',
-  components: { Persons, List, Flag }
+  data () {
+    return {
+      isActive: false
+    }
+  },
+  components: {
+    Persons,
+    List,
+    Flag
+  }
+
 }
 </script>
 
@@ -37,15 +48,18 @@ a {
   text-decoration: none !important;
   color: black;
 }
+
 .nav-sidebar {
   width: 180px;
   border-right: 1px solid #EDEDED;
   margin-top: -8px;
   min-height: 100vh;
+
   .nav-item:hover {
     background-color: #f7f7f7;
   }
 }
+
 .nav-item {
   box-sizing: border-box;
   display: flex;
@@ -56,27 +70,32 @@ a {
   align-items: center;
   border-radius: 10px;
   cursor: pointer;
+
   &:hover {
     font-weight: bold;
   }
-  &__title{
+
+  &__title {
     font-size: 14px;
     margin-top: 8px;
   }
+
   &__icon {
     width: 40px;
   }
 }
-.nav-logo{
+
+.nav-logo {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 15px 10px 60px;
 }
 
-.active {
+.nuxt-link-active {
   border: 2px solid #DBF28B;
-  &:hover{
+
+  &:hover {
     background-color: transparent !important;
   }
 }

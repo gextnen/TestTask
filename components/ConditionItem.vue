@@ -3,7 +3,7 @@
     <div class="condition-block__header">
       <div class="condition-title">
         <span class="condition-title__main">
-          Условие 1
+          Условие {{ indexCondition + 1 }}
         </span>
       </div>
       <div class="condition-select">
@@ -11,35 +11,22 @@
       </div>
     </div>
     <div class="condition-block__body">
-      <div v-if="optionItem !=null && optionItem.name==='AgeRespond'" id="SelectAge">
-        <div class="row">
-          <div class="condition-title">
-            <span class="condition-title__secondary">
-              Диапазон 1
-            </span>
-          </div>
-          <div class="condition-content">
-            <span> от </span> <input type="number" class="input-diapason">
-            <span> до </span><input type="number" class="input-diapason">
-          </div>
-        </div>
-        <DiapasonBlock v-for="(elem, index) in diapasonList" :key="index" :index="index"/>
+      <div v-if="optionItem !=null && optionItem.name==='AgeRespond'">
+        <DiapasonBlock />
+      </div>
+      <div v-if="optionItem !=null && optionItem.name==='TypeCard'">
+        <TypeCardBlock />
+      </div>
+      <div v-if="optionItem !=null && optionItem.name==='StatusCard'">
+        <StatusCardBlock />
       </div>
     </div>
-    <div class="condition-block__footer">
+    <div v-if="optionItem==='' || optionItem===null" class="condition-block__footer">
       <div class="condition-title">
       </div>
       <div class="condition-content">
         <div class="condition-content__buttons">
-          <button class="button-add" v-if="optionItem !=null && optionItem.name==='AgeRespond'" v-on:click="addDiapason">
-            <span class="button-add__plus">
-              <plus/>
-            </span>
-            <span>
-              Добавить диапазон
-            </span>
-          </button>
-          <button class="button-delete">
+          <button class="button-delete" v-on:click="deleteCondition(indexCondition)">
             <span>Удалить условие</span>
           </button>
         </div>
@@ -52,15 +39,20 @@
 import Vue from 'vue'
 import vSelect from 'vue-select'
 import { mapActions } from 'vuex'
-import DiapasonBlock from './DiapasonBlock'
-import Plus from './icons/plus'
+import DiapasonBlock from './ConditionBlocks/DiapasonBlock'
+import TypeCardBlock from './ConditionBlocks/TypeCardBlock'
+import StatusCardBlock from './ConditionBlocks/StatusCardBlock'
 
 Vue.component('v-select', vSelect)
 
 export default {
   name: 'AddCondition',
+  props: {
+    indexCondition: Number
+  },
   components: {
-    Plus,
+    StatusCardBlock,
+    TypeCardBlock,
     DiapasonBlock
   },
   data () {
@@ -83,16 +75,26 @@ export default {
           label: 'Статус карты лояльности'
         }
       ],
-      diapasonList: []
+      diapasonList: [],
+      typesCardList: []
     }
   },
   methods: {
     ...mapActions([
-      'addItemToDiapasonList'
+      'addItemToDiapasonList',
+      'deleteItemFromConditionList'
     ]),
     addDiapason () {
-      this.addItemToDiapasonList()
-      this.diapasonList = this.$store.getters.DiapasonList
+      // this.addItemToDiapasonList()
+      // this.diapasonList = this.$store.getters.DiapasonList
+      this.diapasonList.push({
+        name: 'diapasonItem'
+      })
+      console.log('optionItem', this.optionItem)
+    },
+    deleteCondition (indexCondition) {
+      this.deleteItemFromConditionList(indexCondition)
+      console.log('deleteCondition', indexCondition)
     }
   },
   mounted () {
@@ -104,9 +106,25 @@ export default {
 .condition-block {
   border-bottom: 1px solid #E3E3E3;
   background-color: #FFFCF5;
-  margin-top: 10px;
   padding: 20px 40px;
-
+  &:nth-child(2n) {
+    background-color: #F8FAFF;
+    .condition-title__main{
+      color: #2248A6;
+    }
+  }
+  &:nth-child(3n) {
+    background-color: #FAFFF8;
+    .condition-title__main{
+      color: #6DA622;
+    }
+  }
+  &:nth-child(4n) {
+    background-color: #FAFAFA;
+    .condition-title__main{
+      color: #000;
+    }
+  }
   &__header {
     display: flex;
     align-items: center;
@@ -172,19 +190,6 @@ export default {
   margin-right: 10px;
 }
 
-.button-add {
-  padding: 10px;
-  border-radius: 7px;
-  border: 2px solid #DBF28B;
-  color: #81A500;
-  background-color: transparent;
-
-  &:hover {
-    background-color: rgba(129, 165, 0, 0.1);
-    cursor: pointer;
-  }
-}
-
 .condition-content {
   max-width: calc(100% - 240px);
   flex: 1;
@@ -194,17 +199,4 @@ export default {
   margin-bottom: 10px;
 }
 
-.button-delete {
-  float: right;
-  padding: 10px;
-  border-radius: 7px;
-  border: 2px solid #FFD2D2;
-  color: #F3180A;
-  background-color: transparent;
-
-  &:hover {
-    background-color: rgba(243, 24, 10, 0.1);
-    cursor: pointer;
-  }
-}
 </style>

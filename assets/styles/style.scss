@@ -1,0 +1,36 @@
+@font-face {
+  font-family: Helvetica, sans-serif;
+}
+html,body {
+  font-family: Helvetica, sans-serif;
+}
+.row {
+  width: 100%;
+}
+input:focus{
+  outline:0;
+}
+.button-add {
+  padding: 10px;
+  border-radius: 7px;
+  border: 2px solid #DBF28B;
+  color: #81A500;
+  background-color: transparent;
+  &:hover {
+     background-color: rgba(129, 165, 0, 0.1);
+     cursor: pointer;
+   }
+}
+.button-delete {
+  float: right;
+  padding: 10px;
+  border-radius: 7px;
+  border: 2px solid #FFD2D2;
+  color: #F3180A;
+  background-color: transparent;
+
+  &:hover {
+    background-color: rgba(243, 24, 10, 0.1);
+    cursor: pointer;
+  }
+}

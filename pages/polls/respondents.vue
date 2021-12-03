@@ -3,11 +3,11 @@
     <section class="row">
       <span class="add-pool">Добавить опрос</span>
     </section>
-    <section class="conditionsList">
-      <ConditionItem/>
+    <section class="conditions-list">
+      <ConditionItem v-for="(elem, index) in conditionsList" :key="index" :indexCondition="index"/>
     </section>
     <section class="respondents-add-condition">
-      <div class="respondents-add-condition__content">
+      <div class="respondents-add-condition__content" v-on:click="addCondition">
         <span> +</span>
         <span> Нажмите, чтобы добавить новое условие выборки.</span>
         <span> Все условия связываются между собой логическим "И"</span>
@@ -25,11 +25,27 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import ConditionItem from '../../components/ConditionItem'
 
 export default {
   name: 'Respondents',
-  components: { ConditionItem }
+  components: { ConditionItem },
+  data () {
+    return {
+      conditionsList: []
+    }
+  },
+  methods: {
+    ...mapActions([
+      'addItemToConditionList'
+    ]),
+    addCondition () {
+      this.addItemToConditionList()
+      this.conditionsList = this.$store.getters.ConditionList
+      console.log('Jopa', this.conditionsList)
+    }
+  }
 }
 </script>
 
@@ -40,7 +56,10 @@ export default {
   color: #AEAEAE;
   font-weight: 700;
 }
+.conditions-list {
+  margin: 10px 0 0 0;
 
+}
 .row {
   padding: 20px 40px 0;
 }
@@ -74,11 +93,14 @@ export default {
     border: 0;
   }
 }
-.respondents-add-condition{
+
+.respondents-add-condition {
   padding: 40px;
-  &__content{
+  flex: 1;
+  &__content {
+    cursor: pointer;
     border-radius: 10px;
-    border: 1px solid #E5ECF0;
+    border: 2px solid #E5ECF0;
     padding: 25px;
     display: flex;
     color: #007017;
