@@ -12,6 +12,7 @@
       <v-select
         v-model="statusItem"
         placeholder="Выберите статус"
+        class="status-select"
         :options="statusList"
         @input="setDataToStore"
       ></v-select>
@@ -100,5 +101,8 @@ export default {
 .condition-content {
   max-width: calc(100% - 240px);
   flex: 1;
+}
+.status-select {
+  background-color: #fff;
 }
 </style>

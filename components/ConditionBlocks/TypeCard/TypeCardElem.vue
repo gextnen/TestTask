@@ -4,7 +4,7 @@
       <span>Тип {{ index + 1 }}</span>
     </div>
     <div class="condition-content">
-      <v-select placeholder="Выберите тип" @input="setDataToStore" v-model="typeItem" :options="typesList"></v-select>
+      <v-select placeholder="Выберите тип" class="type-select" @input="setDataToStore" v-model="typeItem" :options="typesList"></v-select>
     </div>
   </div>
 </template>
@@ -70,5 +70,8 @@ export default {
   max-width: calc(100% - 240px);
   padding-right: 10%;
   flex: 1;
+}
+.type-select {
+  background-color: #fff;
 }
 </style>

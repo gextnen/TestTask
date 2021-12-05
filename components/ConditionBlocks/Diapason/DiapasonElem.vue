@@ -89,6 +89,7 @@ export default {
   border-radius: 5px;
   border: 2px solid #E3E3E3;
   flex: 1;
+  background-color: #fff;
   max-width: 110px;
   margin-right: 10px;
 }
