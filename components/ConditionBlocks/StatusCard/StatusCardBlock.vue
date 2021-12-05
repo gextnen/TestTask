@@ -1,14 +1,14 @@
 <template>
   <div class="status-card-block">
-    <StatusCardElem v-for="(elem, index) in statusStoreList" :key="index" :index="index" />
+    <StatusCardElem v-for="(elem, index) in statusStoreList" :key="index" :index="index" :indexCondition="indexCondition" />
     <div class="row condition-footer">
       <div class="condition-title">
       </div>
       <div class="condition-buttons">
-        <button class="button-add" v-on:click="addStatus">
+        <button class="button-add" @click="addStatus">
           <span>Добавить статус</span>
         </button>
-        <button class="button-delete" v-on:click="deleteCondition(indexCondition)">
+        <button class="button-delete" @click="deleteCondition(indexCondition)">
           <span>Удалить условие</span>
         </button>
       </div>
@@ -43,18 +43,23 @@ export default {
       statusStoreList: []
     }
   },
+  mounted () {
+    this.changeTypeItemConditionList({
+      type: 'StatusCard',
+      index: this.indexCondition
+    })
+  },
   methods: {
     ...mapActions([
-      'deleteItemFromConditionList'
+      'deleteItemFromConditionList',
+      'changeTypeItemConditionList'
     ]),
     addStatus () {
       this.statusStoreList.push({
         name: 'statusItem'
       })
-      console.log('statusStoreList', this.statusStoreList)
     },
     deleteCondition (indexCondition) {
-      console.log('deleteCondition', indexCondition)
       this.deleteItemFromConditionList(indexCondition)
     }
   }

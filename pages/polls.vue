@@ -1,9 +1,6 @@
 <template>
   <div>
     <Header/>
-    <div class="">
-      Дом → опросы → Добавить опрос
-    </div>
     <div class="pools-content">
       <div class="pools-nav">
         <div class="pools-nav__item">

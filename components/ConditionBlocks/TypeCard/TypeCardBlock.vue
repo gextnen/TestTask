@@ -1,12 +1,12 @@
 <template>
   <div class="status-diapason-block">
-    <DiapasonElem v-for="(elem, index) in diapasonStoreList" :key="index" :index="index" />
+    <TypeCardElem v-for="(elem, index) in typeCardList" :key="index" :index="index" :indexCondition="indexCondition" />
     <div class="row condition-footer">
       <div class="condition-title">
       </div>
       <div class="condition-buttons">
-        <button class="button-add" v-on:click="addDiapason">
-          <span>Добавить Диапазон</span>
+        <button class="button-add" v-on:click="addTypeCardCond">
+          <span>Добавить Тип</span>
         </button>
         <button class="button-delete" v-on:click="deleteCondition(indexCondition)">
           <span>Удалить условие</span>
@@ -18,33 +18,39 @@
 
 <script>
 import { mapActions } from 'vuex'
-import DiapasonElem from './DiapasonElem'
+import TypeCardElem from './TypeCardElem'
+
 export default {
   name: 'DiapasonBlock',
-  components: { DiapasonElem },
+  components: { TypeCardElem },
   data () {
     return {
-      diapasonStoreList: []
+      typeCardList: []
     }
   },
   props: {
-    index: Object
+    indexCondition: Number
+  },
+  destroyed () {
+    this.typeCardList = []
   },
   mounted () {
-    console.log('jopa', this.$store)
+    this.changeTypeItemConditionList({
+      type: 'TypeCard',
+      index: this.indexCondition
+    })
   },
   methods: {
     ...mapActions([
-      'deleteItemFromConditionList'
+      'deleteItemFromConditionList',
+      'changeTypeItemConditionList'
     ]),
-    addDiapason () {
-      this.diapasonStoreList.push({
-        name: 'diapasonItem'
+    addTypeCardCond () {
+      this.typeCardList.push({
+        name: 'typeCardItem'
       })
-      console.log('diapasonStoreList', this.diapasonStoreList)
     },
     deleteCondition (indexCondition) {
-      console.log('deleteCondition', indexCondition)
       this.deleteItemFromConditionList(indexCondition)
     }
   }
@@ -103,7 +109,7 @@ export default {
   margin-top: 30px;
 }
 
-.condition-buttons{
+.condition-buttons {
   flex: 1;
 }
 </style>

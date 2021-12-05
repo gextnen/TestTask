@@ -4,16 +4,19 @@
       <span>Тип {{ index + 1 }}</span>
     </div>
     <div class="condition-content">
-      <v-select placeholder="Выберите тип" v-model="typeItem" :options="typesList"></v-select>
+      <v-select placeholder="Выберите тип" @input="setDataToStore" v-model="typeItem" :options="typesList"></v-select>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'TypeCardBlock',
   props: {
-    index: Object
+    index: Number,
+    indexCondition: Number
   },
   data () {
     return {
@@ -33,7 +36,23 @@ export default {
           name: 'Bronze',
           label: 'Bronze'
         }
-      ]
+      ],
+      typeItem: ''
+    }
+  },
+  mounted () {
+    this.addContentToConditionItem({ index: this.indexCondition })
+  },
+  methods: {
+    ...mapActions(
+      ['addContentToConditionItem',
+        'updateDataFromConditionItem']),
+    setDataToStore () {
+      this.updateDataFromConditionItem({
+        data: this.typeItem.name,
+        indexElem: this.index,
+        indexCond: this.indexCondition
+      })
     }
   }
 }

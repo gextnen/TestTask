@@ -13,13 +13,17 @@ input:focus{
 .button-add {
   padding: 10px;
   border-radius: 7px;
+  background-color: transparent;
   border: 2px solid #DBF28B;
   color: #81A500;
-  background-color: transparent;
   &:hover {
      background-color: rgba(129, 165, 0, 0.1);
      cursor: pointer;
    }
+  span {
+    background: url("assets/icons/myPlus.svg") no-repeat;
+    padding-left: 20px;
+  }
 }
 .button-delete {
   float: right;

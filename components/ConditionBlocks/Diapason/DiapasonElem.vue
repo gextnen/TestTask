@@ -9,17 +9,43 @@
       </span>
     </div>
     <div class="condition-content">
-      <span> от </span> <input type="number" class="input-diapason">
-      <span> до </span> <input type="number" class="input-diapason">
+      <span> от </span> <input type="number" v-model="diapasonListData.data[0]" class="input-diapason" @change="setDataToStore">
+      <span> до </span> <input type="number" v-model="diapasonListData.data[1]" class="input-diapason" @change="setDataToStore">
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'DiapasonElem',
-  props: {
-    index: Object
+  props:
+    {
+      index: Number,
+      indexCondition: Number
+    },
+  data () {
+    return {
+      diapasonListData: {
+        data: []
+      }
+    }
+  },
+  mounted () {
+    this.addContentToConditionItem({ index: this.indexCondition })
+  },
+  methods: {
+    ...mapActions(
+      ['addContentToConditionItem',
+        'updateDataFromConditionItem']),
+    setDataToStore () {
+      this.updateDataFromConditionItem({
+        data: [this.diapasonListData.data[0], this.diapasonListData.data[1]],
+        indexElem: this.index,
+        indexCond: this.indexCondition
+      })
+    }
   }
 }
 </script>

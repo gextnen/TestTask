@@ -1,14 +1,13 @@
 <template>
   <div class="status-diapason-block">
-    <TypeCardElem v-for="(elem, index) in typeCardList" :key="index" :index="index"/>
+    <DiapasonElem v-for="(elem, index) in diapasonStoreList" :key="index" :elem="elem" :index="index" :indexCondition="indexCondition" />
     <div class="row condition-footer">
-      <div class="condition-title">
-      </div>
+      <div class="condition-title"></div>
       <div class="condition-buttons">
-        <button class="button-add" v-on:click="addTypeCardCond">
-          <span>Добавить Тип</span>
+        <button class="button-add" @click="addDiapason">
+          <span>Добавить Диапазон</span>
         </button>
-        <button class="button-delete" v-on:click="deleteCondition(indexCondition)">
+        <button class="button-delete" @click="deleteCondition(indexCondition)">
           <span>Удалить условие</span>
         </button>
       </div>
@@ -18,34 +17,38 @@
 
 <script>
 import { mapActions } from 'vuex'
-import TypeCardElem from './TypeCardElem'
+import DiapasonElem from './DiapasonElem'
 
 export default {
   name: 'DiapasonBlock',
-  components: { TypeCardElem },
+  components: { DiapasonElem },
+  props: {
+    indexCondition: Number
+  },
   data () {
     return {
-      typeCardList: []
+      diapasonStoreList: []
     }
   },
-  props: {
-    index: Object
-  },
-  destroyed () {
-    this.typeCardList = []
+  mounted () {
+    this.changeTypeItemConditionList({
+      type: 'AgeRespond',
+      index: this.indexCondition
+    })
   },
   methods: {
     ...mapActions([
-      'deleteItemFromConditionList'
+      'deleteItemFromConditionList',
+      'changeTypeItemConditionList',
+      'updateDataFromConditionItem'
     ]),
-    addTypeCardCond () {
-      this.typeCardList.push({
-        name: 'typeCardItem'
+    addDiapason () {
+      this.diapasonStoreList.push({
+        name: 'diapasonItem',
+        data: []
       })
-      console.log('typeCardList', this.typeCardList)
     },
     deleteCondition (indexCondition) {
-      console.log('deleteCondition', indexCondition)
       this.deleteItemFromConditionList(indexCondition)
     }
   }

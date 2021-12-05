@@ -7,18 +7,18 @@
         </span>
       </div>
       <div class="condition-select">
-        <v-select placeholder="Выберите условие" v-model="optionItem" :options="optionList"></v-select>
+        <v-select v-model="optionItem" :options="optionList" placeholder="Выберите условие"></v-select>
       </div>
     </div>
     <div class="condition-block__body">
       <div v-if="optionItem !=null && optionItem.name==='AgeRespond'">
-        <DiapasonBlock />
+        <DiapasonBlock :indexCondition="indexCondition" />
       </div>
       <div v-if="optionItem !=null && optionItem.name==='TypeCard'">
-        <TypeCardBlock />
+        <TypeCardBlock :indexCondition="indexCondition" />
       </div>
       <div v-if="optionItem !=null && optionItem.name==='StatusCard'">
-        <StatusCardBlock />
+        <StatusCardBlock :indexCondition="indexCondition" />
       </div>
     </div>
     <div v-if="optionItem==='' || optionItem===null" class="condition-block__footer">
@@ -26,7 +26,7 @@
       </div>
       <div class="condition-content">
         <div class="condition-content__buttons">
-          <button class="button-delete" v-on:click="deleteCondition(indexCondition)">
+          <button class="button-delete" @click="deleteCondition(indexCondition)">
             <span>Удалить условие</span>
           </button>
         </div>
@@ -39,21 +39,21 @@
 import Vue from 'vue'
 import vSelect from 'vue-select'
 import { mapActions } from 'vuex'
-import DiapasonBlock from './ConditionBlocks/DiapasonBlock'
-import TypeCardBlock from './ConditionBlocks/TypeCardBlock'
-import StatusCardBlock from './ConditionBlocks/StatusCardBlock'
+import DiapasonBlock from './ConditionBlocks/Diapason/DiapasonBlock'
+import TypeCardBlock from './ConditionBlocks/TypeCard/TypeCardBlock'
+import StatusCardBlock from './ConditionBlocks/StatusCard/StatusCardBlock'
 
 Vue.component('v-select', vSelect)
 
 export default {
   name: 'AddCondition',
-  props: {
-    indexCondition: Number
-  },
   components: {
     StatusCardBlock,
     TypeCardBlock,
     DiapasonBlock
+  },
+  props: {
+    indexCondition: Number
   },
   data () {
     return {
@@ -90,14 +90,10 @@ export default {
       this.diapasonList.push({
         name: 'diapasonItem'
       })
-      console.log('optionItem', this.optionItem)
     },
     deleteCondition (indexCondition) {
       this.deleteItemFromConditionList(indexCondition)
-      console.log('deleteCondition', indexCondition)
     }
-  },
-  mounted () {
   }
 }
 </script>

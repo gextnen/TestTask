@@ -17,7 +17,7 @@
       <button class="respondents-footer__test">
         Протестировать опрос
       </button>
-      <button class="respondents-footer__next">
+      <button class="respondents-footer__next" @click="sendFormConditions">
         Далее →
       </button>
     </section>
@@ -26,6 +26,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import axios from 'axios'
 import ConditionItem from '../../components/ConditionItem'
 
 export default {
@@ -43,7 +44,21 @@ export default {
     addCondition () {
       this.addItemToConditionList()
       this.conditionsList = this.$store.getters.ConditionList
-      console.log('Jopa', this.conditionsList)
+    },
+    async sendFormConditions () {
+      const dataList = this.$store.getters.ConditionList
+      await axios.request({
+        url: process.env.VUE_APP_SERVER_URL,
+        method: 'POST',
+        data: dataList
+      }).then((resp) => {
+        alert('Данные успешно отправлены')
+        console.log('Успешно', resp)
+      })
+        .catch((err) => {
+          alert('Не удалось отправить форму, проверьте логи')
+          console.log('Ошибка при отправке формы: ', err)
+        })
     }
   }
 }
@@ -56,10 +71,12 @@ export default {
   color: #AEAEAE;
   font-weight: 700;
 }
+
 .conditions-list {
   margin: 10px 0 0 0;
 
 }
+
 .row {
   padding: 20px 40px 0;
 }
@@ -91,12 +108,19 @@ export default {
     background-color: #06A326;
     border-radius: 5px;
     border: 0;
+    &:hover {
+      cursor: pointer;
+    }
+    &:active{
+      background-color: #035215;
+    }
   }
 }
 
 .respondents-add-condition {
   padding: 40px;
   flex: 1;
+
   &__content {
     cursor: pointer;
     border-radius: 10px;

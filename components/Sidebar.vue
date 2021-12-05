@@ -1,22 +1,24 @@
 <template>
   <div class="nav-sidebar">
     <div class="nav-logo">
-      <img src="~/assets/icons/redCircle.svg" alt="" class="nav-item__icon"/>
+      <nuxt-link to="/" class="logo">
+        <img src="~/assets/icons/redCircle.svg" alt="" class="nav-item__icon"/>
+      </nuxt-link>
     </div>
     <nuxt-link to="/polls" class="nav-item">
-      <list/>
-      <span class="nav-item__title" >Опросы</span>
+      <list />
+      <span class="nav-item__title">Опросы</span>
     </nuxt-link>
     <nuxt-link to="/users" class="nav-item">
-      <persons/>
+      <persons />
       <span class="nav-item__title">Пользователи</span>
     </nuxt-link>
     <nuxt-link to="/blackLists" class="nav-item">
-      <flag icon-name="red"/>
+      <flag />
       <span class="nav-item__title">Черные списки</span>
     </nuxt-link>
     <nuxt-link to="/callCenter" class="nav-item">
-      <img src="~/assets/icons/phone.svg" alt="" class="nav-item__icon"/>
+      <phone />
       <span class="nav-item__title">Колл-центр</span>
     </nuxt-link>
   </div>
@@ -26,6 +28,7 @@
 import Flag from './icons/flag'
 import List from './icons/list'
 import Persons from './icons/persons'
+import Phone from './icons/phone'
 
 export default {
   name: 'Sidebar',
@@ -35,6 +38,7 @@ export default {
     }
   },
   components: {
+    Phone,
     Persons,
     List,
     Flag
@@ -97,6 +101,9 @@ a {
 
   &:hover {
     background-color: transparent !important;
+  }
+  &.logo {
+    border: none;
   }
 }
 </style>

@@ -13,11 +13,10 @@
       fill="black"
     />
     <title
-      :id="iconName"
       lang="en"
-    >{{iconName}} icon</title>
-    <g :fill="iconColor">
-      <slot/>
+    > icon</title>
+    <g>
+      <slot />
     </g>
   </svg>
 </template>
